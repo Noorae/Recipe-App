@@ -1,4 +1,4 @@
-package com.example.recipeapplication.ui.theme
+package com.project.recipeapplication.ui.theme
 
 import android.app.Activity
 import android.os.Build

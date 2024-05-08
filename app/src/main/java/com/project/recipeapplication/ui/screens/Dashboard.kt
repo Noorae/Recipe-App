@@ -1,4 +1,4 @@
-package com.example.recipeapplication.ui.screens
+package com.project.recipeapplication.ui.screens
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

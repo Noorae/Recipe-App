@@ -1,4 +1,4 @@
-package com.example.recipeapplication.ui.navigation
+package com.project.recipeapplication.ui.navigation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -25,10 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.recipeapplication.ui.screens.Dashboard
-import com.example.recipeapplication.ui.screens.Recipes
-import com.example.recipeapplication.ui.screens.Search
-import com.example.recipeapplication.ui.screens.ShoppingList
+import com.project.recipeapplication.ui.screens.Dashboard
+import com.project.recipeapplication.ui.screens.Recipes
+import com.project.recipeapplication.ui.screens.Search
+import com.project.recipeapplication.ui.screens.ShoppingList
 
 
 @Composable

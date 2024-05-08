@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.recipeapplication"
+    namespace = "com.project.recipeapplication"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.recipeapplication"
+        applicationId = "com.project.recipeapplication"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
