@@ -13,11 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.project.recipeapplication.viewModel.RecipesViewModel
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search(navController: NavController) {
+fun Search(navController: NavController, viewModel: RecipesViewModel = viewModel()) {
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
@@ -30,7 +33,7 @@ fun Search(navController: NavController) {
         SearchBar(
             query = searchQuery ,
             onQueryChange = { newQuery -> searchQuery = newQuery },
-            onSearch = {/*TODO*/},
+            onSearch = { if (searchQuery.length >= 3) { viewModel.fetchRecipes(searchQuery)} },
             active = false,
             onActiveChange = {/*TODO*/}) {
 
