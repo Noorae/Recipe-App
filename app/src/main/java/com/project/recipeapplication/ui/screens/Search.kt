@@ -30,12 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.recipeapplication.R
+import com.project.recipeapplication.ui.components.RecipeSearchBar
 import com.project.recipeapplication.viewModel.RecipesViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,7 +47,7 @@ import kotlinx.coroutines.launch
 fun Search(navController: NavController, viewModel: RecipesViewModel = viewModel()) {
     val searchQuery = viewModel.searchQuery
     val recipes = viewModel.recipes
-    val coroutineScope = rememberCoroutineScope()
+
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -53,31 +55,18 @@ fun Search(navController: NavController, viewModel: RecipesViewModel = viewModel
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Search recipes", modifier = Modifier
+        Text(modifier = Modifier
             .align(Alignment.Start)
-            .padding(start = 16.dp, top = 15.dp), fontSize = 20.sp)
-        SearchBar(modifier = Modifier.padding(8.dp),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Rounded.Search,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            },
-            query = searchQuery ,
-            onQueryChange = { newQuery ->
-                viewModel.updateSearchQuery(newQuery)
-                if (newQuery.length >= 3) {
-                    coroutineScope.launch {
-                        delay(2000)
-                        viewModel.fetchRecipes()
-                    }
-                } },
-            onSearch = { if (searchQuery.length >= 3) { viewModel.fetchRecipes()} },
-            active = false,
-            onActiveChange = {/*TODO*/}) {
-
-        }
+            .padding(start = 16.dp, top = 20.dp),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            text = "Search recipes"
+        )
+        RecipeSearchBar(
+            searchQuery = searchQuery,
+            onQueryChange = { newQuery -> viewModel.updateSearchQuery(newQuery) },
+            onSearch = { viewModel.fetchRecipes() }
+        )
         LazyColumn {
             items(recipes) { recipe ->
                 Card(
