@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.recipeapplication.BuildConfig
 import com.project.recipeapplication.data.model.ApiRecipe
-import com.project.recipeapplication.data.repository.RecipeRepository
+import com.project.recipeapplication.data.repository.ApiRecipeRepository
 import kotlinx.coroutines.launch
 
 class ApiRecipesViewModel : ViewModel() {
-    private val repository = RecipeRepository()
+    private val repository = ApiRecipeRepository()
     private val _results : SnapshotStateList<ApiRecipe> = mutableStateListOf<ApiRecipe>()
     val recipes : List<ApiRecipe> get() = _results
     var searchQuery by mutableStateOf("")
