@@ -1,6 +1,6 @@
 package com.project.recipeapplication.data.model
 
 data class ResponseData(
-    val results: List<Recipe>
+    val results: List<ApiRecipe>
 ) {}
 
