@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
@@ -28,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -49,8 +53,17 @@ fun Search(navController: NavController, viewModel: RecipesViewModel = viewModel
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Search page")
+        Text(text = "Search recipes", modifier = Modifier
+            .align(Alignment.Start)
+            .padding(start = 16.dp, top = 15.dp), fontSize = 20.sp)
         SearchBar(modifier = Modifier.padding(8.dp),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            },
             query = searchQuery ,
             onQueryChange = { newQuery ->
                 viewModel.updateSearchQuery(newQuery)
@@ -71,7 +84,7 @@ fun Search(navController: NavController, viewModel: RecipesViewModel = viewModel
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant,),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp))
+                        .padding(horizontal = 12.dp, vertical = 8.dp))
                 {
                     Row(modifier = Modifier.padding(8.dp)) {
                         AsyncImage(
