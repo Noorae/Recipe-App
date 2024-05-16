@@ -12,7 +12,7 @@ import com.project.recipeapplication.data.model.ApiRecipe
 import com.project.recipeapplication.data.repository.RecipeRepository
 import kotlinx.coroutines.launch
 
-class RecipesViewModel : ViewModel() {
+class ApiRecipesViewModel : ViewModel() {
     private val repository = RecipeRepository()
     private val _results : SnapshotStateList<ApiRecipe> = mutableStateListOf<ApiRecipe>()
     val recipes : List<ApiRecipe> get() = _results
