@@ -14,7 +14,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,41 +47,24 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel = v
     ) {
         LazyColumn {
             items(recipes) { recipe ->
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant,),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 8.dp))
-                {
-                    Row(modifier = Modifier.padding(8.dp)) {
-                        Image(
-                            painter = painterResource(id = R.drawable.placeholder),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(100.dp)
-                                .clip(RoundedCornerShape(15.dp))
-                        )
-
-                        Text(text = recipe.title,
-                                modifier = Modifier.padding(10.dp))
-
-                        IconButton(onClick = { /*TODO*/ }) {
-
-                        }
-
+                ListItem(
+                    headlineContent = {recipe.title},
+                    leadingContent = {
+                        Image(painter = painterResource(id = R.drawable.placeholder),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(RoundedCornerShape(15.dp)))
                     }
-                    Text(text = "description of recipe", modifier = Modifier.padding(8.dp))
-
-                }
-
+                )
+                Divider()
             }
         }
         Button(onClick = { /*TODO*/ }) {
-          Text(text = "add to database")
+          Text(text = "Add new recipe")
         }
     }
-    
     
 
 }
