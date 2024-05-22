@@ -9,5 +9,4 @@ data class PersonalRecipe(
     val title: String,
     val instructions: String,
     val imagePath: String
-) {
-}
+)
