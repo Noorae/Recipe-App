@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.project.recipeapplication.ui.components.AddRecipe
 import com.project.recipeapplication.ui.screens.Dashboard
 import com.project.recipeapplication.ui.screens.Recipes
 import com.project.recipeapplication.ui.screens.Search
@@ -101,6 +102,9 @@ fun BottomNavBar() {
                 }
                 composable("groceries") {
                     ShoppingList(navController = navController)
+                }
+                composable("addRecipe") {
+                    AddRecipe(navController = navController)
                 }
             }
         }
