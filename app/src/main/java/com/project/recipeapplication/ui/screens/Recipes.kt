@@ -28,7 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.project.recipeapplication.R
@@ -45,10 +47,18 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel = v
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LazyColumn {
+        Text(modifier = Modifier
+            .align(Alignment.Start)
+            .padding(start = 16.dp, top = 20.dp),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            text = "Recipes"
+        )
+        Divider()
+        LazyColumn(modifier = Modifier.weight(1f)) {
             items(recipes) { recipe ->
                 ListItem(
-                    headlineContent = {recipe.title},
+                    headlineContent = { Text(recipe.title)},
                     leadingContent = {
                         Image(painter = painterResource(id = R.drawable.placeholder),
                         contentDescription = null,
@@ -61,7 +71,7 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel = v
                 Divider()
             }
         }
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { navController.navigate("addRecipe")}, modifier = Modifier.padding(bottom = 20.dp)) {
           Text(text = "Add new recipe")
         }
     }
