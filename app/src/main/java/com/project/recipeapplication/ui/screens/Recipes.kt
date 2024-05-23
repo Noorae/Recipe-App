@@ -18,9 +18,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -43,7 +45,7 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel = v
     val recipes = recipeState.value
 
 
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -55,20 +57,22 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel = v
             text = "Recipes"
         )
         Divider()
-        LazyColumn(modifier = Modifier.weight(1f)) {
+        LazyColumn(modifier = Modifier.weight(1f).padding(5.dp)) {
             items(recipes) { recipe ->
                 ListItem(
+                    modifier = Modifier.padding(vertical = 8.dp).clip(RoundedCornerShape(8.dp)),
+                    colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
                     headlineContent = { Text(recipe.title)},
                     leadingContent = {
                         Image(painter = painterResource(id = R.drawable.placeholder),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier
+                        modifier = Modifier.padding(vertical = 8.dp)
                             .size(100.dp)
-                            .clip(RoundedCornerShape(15.dp)))
+                            .clip(RoundedCornerShape(10.dp)))
                     }
                 )
-                Divider()
+
             }
         }
         Button(onClick = { navController.navigate("addRecipe")}, modifier = Modifier.padding(bottom = 20.dp)) {
