@@ -1,7 +1,9 @@
 package com.project.recipeapplication.data.api
 
+import com.project.recipeapplication.data.model.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.ApiResponseData
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecipeApiService {
@@ -12,4 +14,11 @@ interface RecipeApiService {
         @Query("number") number: Int,
         @Query("instructionsRequired") instructionsRequired: Boolean
     ): ApiResponseData
+
+    @GET("recipes/{id}/information")
+    suspend fun getRecipeDetails(
+        @Path("id") id: Int,
+        @Query("apiKey") apiKey: String,
+        @Query("includeNutrition") includeNutrition: Boolean = false
+    ): ApiDetailedRecipe
 }
