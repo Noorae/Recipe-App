@@ -1,6 +1,7 @@
 package com.project.recipeapplication.viewModel
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,6 +9,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.recipeapplication.BuildConfig
+import com.project.recipeapplication.data.model.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.ApiRecipe
 import com.project.recipeapplication.data.repository.ApiRecipeRepository
 import kotlinx.coroutines.launch
@@ -17,6 +19,10 @@ class ApiRecipesViewModel : ViewModel() {
     private val _results : SnapshotStateList<ApiRecipe> = mutableStateListOf<ApiRecipe>()
     val recipes : List<ApiRecipe> get() = _results
     var searchQuery by mutableStateOf("")
+
+    // searched recipes details are null in the start, with optional
+    var selectedRecipeDetails by mutableStateOf<ApiDetailedRecipe?>(null)
+    var selectedId by mutableIntStateOf(0)
 
 
     //function to take a new searchQuery
@@ -41,6 +47,21 @@ class ApiRecipesViewModel : ViewModel() {
             _results.addAll(recipeList)
             //TODO remove debugging logs
             println(_results.joinToString(separator = "\n") { it.toString() })
+        }
+
+    }
+
+    fun fetchRecipeDetails() {
+        val apiKey = BuildConfig.API_KEY
+
+        viewModelScope.launch {
+            selectedRecipeDetails = repository.fetchRecipeDetails(
+                selectedId,
+                apiKey
+            )
+
+            println(selectedRecipeDetails)
+
         }
 
     }
