@@ -1,6 +1,7 @@
 package com.project.recipeapplication.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,54 +42,52 @@ fun Search(navController: NavController, viewModel: ApiRecipesViewModel = viewMo
     val searchQuery = viewModel.searchQuery
     val recipes = viewModel.recipes
 
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //TODO Add heading to its own composable
+        Text(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+                .align(Alignment.Start)
+                .padding(start = 16.dp, top = 20.dp),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            text = "Search recipes"
+        )
+        Divider()
+        RecipeSearchBar(
+            searchQuery = searchQuery,
+            onQueryChange = { newQuery -> viewModel.updateSearchQuery(newQuery) },
+            onSearch = { viewModel.fetchRecipes() }
+        )
+        LazyColumn(modifier = Modifier
+            .weight(1f)
+            .padding(5.dp)) {
+            items(recipes) { recipe ->
+                ListItem(
+                    modifier = Modifier.clickable(onClick = {
+                                        viewModel.selectedId = recipe.id
+                                        viewModel.fetchRecipeDetails() },
+                                        )
+                        .padding(vertical = 8.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                    colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
+                    headlineContent = { Text(recipe.title) },
+                    leadingContent = {
+                        AsyncImage(
+                            model = recipe.image,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.clip(RoundedCornerShape(10.dp))
+                        )
+                    },
 
-            //TODO Add heading to its own composable
-            Text(
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(start = 16.dp, top = 20.dp),
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                text = "Search recipes"
-            )
-            Divider()
-            RecipeSearchBar(
-                searchQuery = searchQuery,
-                onQueryChange = { newQuery -> viewModel.updateSearchQuery(newQuery) },
-                onSearch = { viewModel.fetchRecipes() }
-            )
-            LazyColumn(modifier = Modifier
-                .weight(1f)
-                .padding(5.dp)) {
-                items(recipes) { recipe ->
-                    ListItem(
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .clip(RoundedCornerShape(8.dp)),
-                        colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
-                        headlineContent = { Text(recipe.title) },
-                        leadingContent = {
-                            AsyncImage(
-                                model = recipe.image,
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.clip(RoundedCornerShape(10.dp))
-                            )
-                        }
-                    )
-
-
-                }
+                )
             }
-
         }
-
-
+    }
 }
