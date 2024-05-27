@@ -29,12 +29,10 @@ fun AddRecipe(navController: NavController, viewModel: PersonalRecipeViewModel =
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(modifier = Modifier
-            .align(Alignment.Start)
-            .padding(start = 16.dp, top = 20.dp),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            text = "New recipe info"
+        CustomTopBar(
+            title = "Add new recipe" ,
+            navController =  navController,
+            showBackButton = true
         )
         Divider()
         Column(modifier= Modifier.padding(vertical = 10.dp)) {
