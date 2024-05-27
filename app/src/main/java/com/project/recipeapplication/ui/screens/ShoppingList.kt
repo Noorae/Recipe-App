@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.project.recipeapplication.ui.components.CustomTopBar
 
 @Composable
 fun ShoppingList(navController: NavController) {
@@ -23,12 +24,9 @@ fun ShoppingList(navController: NavController) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(modifier = Modifier
-            .align(Alignment.Start)
-            .padding(start = 16.dp, top = 20.dp),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            text = "Shopping List"
+        CustomTopBar(
+            title = "Shopping list" ,
+            navController =  navController,
         )
         Divider()
     }
