@@ -12,6 +12,8 @@ import com.project.recipeapplication.BuildConfig
 import com.project.recipeapplication.data.model.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.ApiRecipe
 import com.project.recipeapplication.data.repository.ApiRecipeRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ApiRecipesViewModel : ViewModel() {
@@ -21,8 +23,11 @@ class ApiRecipesViewModel : ViewModel() {
     var searchQuery by mutableStateOf("")
 
     // searched recipes details are null in the start, with optional
-    var selectedRecipeDetails by mutableStateOf<ApiDetailedRecipe?>(null)
+    //var selectedRecipeDetails by mutableStateOf<ApiDetailedRecipe?>(null)
     var selectedId by mutableIntStateOf(0)
+
+    private var _selectedRecipeDetails = MutableStateFlow<ApiDetailedRecipe?>(null)
+    val selectedRecipeDetails: StateFlow<ApiDetailedRecipe?> get() = _selectedRecipeDetails
 
 
 
@@ -54,17 +59,19 @@ class ApiRecipesViewModel : ViewModel() {
     }
 
     //function that fetches detailed recipe data
-    fun fetchRecipeDetails() {
+    fun fetchRecipeDetails(recipeId: Int) {
         val apiKey = BuildConfig.API_KEY
 
+
         viewModelScope.launch {
-            selectedRecipeDetails = repository.fetchRecipeDetails(
-                selectedId,
+            val details = repository.fetchRecipeDetails(
+                recipeId,
                 apiKey
             )
+            _selectedRecipeDetails.value = details
 
             println(selectedRecipeDetails)
-            println(selectedRecipeDetails!!.analyzedInstructions)
+            println(_selectedRecipeDetails.value!!.analyzedInstructions)
 
 
         }
