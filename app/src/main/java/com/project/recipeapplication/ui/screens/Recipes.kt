@@ -47,6 +47,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.project.recipeapplication.R
 import com.project.recipeapplication.data.model.PersonalRecipe
+import com.project.recipeapplication.ui.components.CustomTopBar
 import com.project.recipeapplication.ui.components.RecipeList
 import com.project.recipeapplication.ui.components.RecipesTabs
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
@@ -65,12 +66,9 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel = v
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(modifier = Modifier
-            .align(Alignment.Start)
-            .padding(start = 16.dp, top = 20.dp),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            text = "Recipes"
+        CustomTopBar(
+            title = "Recipes" ,
+            navController =  navController,
         )
         RecipesTabs(
             selectedTabIndex = selectedTabIndex,
