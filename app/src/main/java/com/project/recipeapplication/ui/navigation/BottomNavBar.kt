@@ -22,19 +22,23 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.project.recipeapplication.ui.components.AddRecipe
+import com.project.recipeapplication.ui.components.ApiRecipeInfo
 import com.project.recipeapplication.ui.screens.Dashboard
 import com.project.recipeapplication.ui.screens.Recipes
 import com.project.recipeapplication.ui.screens.Search
 import com.project.recipeapplication.ui.screens.ShoppingList
+import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 
 
 @Composable
 fun BottomNavBar() {
     val navController = rememberNavController()
+    val apiViewModel : ApiRecipesViewModel = viewModel()
     var selectedNavItemIndex by rememberSaveable {
         mutableIntStateOf( 0)
     }
@@ -73,7 +77,7 @@ fun BottomNavBar() {
                         label = {Text(text = item.label)},
                         selected = selectedNavItemIndex == index,
                         onClick = { selectedNavItemIndex = index
-                                    navController.navigate(item.route)},
+                                    navController.navigate(item.route) },
                         icon = { Icon(
                             imageVector = if (index == selectedNavItemIndex) {
                             item.selectedIcon
@@ -95,7 +99,7 @@ fun BottomNavBar() {
                     Dashboard(navController = navController)
                 }
                 composable("search") {
-                    Search(navController = navController)
+                    Search(navController = navController, viewModel = apiViewModel)
                 }
                 composable("recipes") {
                     Recipes(navController = navController)
@@ -105,6 +109,9 @@ fun BottomNavBar() {
                 }
                 composable("addRecipe") {
                     AddRecipe(navController = navController)
+                }
+                composable("apiRecipeInfo") {
+                    ApiRecipeInfo(navController = navController, viewModel = apiViewModel)
                 }
             }
         }
