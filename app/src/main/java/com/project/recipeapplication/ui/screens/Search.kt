@@ -32,13 +32,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.project.recipeapplication.ui.components.CustomTopBar
 import com.project.recipeapplication.ui.components.RecipeSearchBar
 import com.project.recipeapplication.ui.theme.RecipeApplicationTheme
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search(navController: NavController, viewModel: ApiRecipesViewModel = viewModel()) {
+fun Search(navController: NavController, viewModel: ApiRecipesViewModel) {
     val searchQuery = viewModel.searchQuery
     val recipes = viewModel.recipes
 
@@ -50,13 +51,9 @@ fun Search(navController: NavController, viewModel: ApiRecipesViewModel = viewMo
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //TODO Add heading to its own composable
-        Text(
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(start = 16.dp, top = 20.dp),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            text = "Search recipes"
+        CustomTopBar(
+            title = "Inspiration search" ,
+            navController =  navController,
         )
         Divider()
         RecipeSearchBar(
@@ -70,8 +67,9 @@ fun Search(navController: NavController, viewModel: ApiRecipesViewModel = viewMo
             items(recipes) { recipe ->
                 ListItem(
                     modifier = Modifier.clickable(onClick = {
-                                        viewModel.selectedId = recipe.id
-                                        viewModel.fetchRecipeDetails() },
+                                        //viewModel.selectedId = recipe.id
+                                        viewModel.fetchRecipeDetails(recipe.id)
+                                        navController.navigate("apiRecipeInfo")},
                                         )
                         .padding(vertical = 8.dp)
                         .clip(RoundedCornerShape(8.dp)),
