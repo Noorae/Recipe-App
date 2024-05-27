@@ -25,11 +25,13 @@ class ApiRecipesViewModel : ViewModel() {
     var selectedId by mutableIntStateOf(0)
 
 
+
     //function to take a new searchQuery
     fun updateSearchQuery(newQuery: String) {
         searchQuery = newQuery
     }
 
+    //function that fetches a list of recipes matching search terms
     fun fetchRecipes() {
         val apiKey = BuildConfig.API_KEY
 
@@ -51,6 +53,7 @@ class ApiRecipesViewModel : ViewModel() {
 
     }
 
+    //function that fetches detailed recipe data
     fun fetchRecipeDetails() {
         val apiKey = BuildConfig.API_KEY
 
@@ -61,9 +64,12 @@ class ApiRecipesViewModel : ViewModel() {
             )
 
             println(selectedRecipeDetails)
+            println(selectedRecipeDetails!!.analyzedInstructions)
+
 
         }
 
     }
+
 
 }
