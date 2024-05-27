@@ -8,8 +8,7 @@ data class ApiDetailedRecipe(
     val readyInMinutes : Int,
     val credits: String,
     val dishType: List<String>,
-    val ingredients: List<ApiIngredient>,
-
-    //TODO ADD val instructions : List<String>,
+    val extendedIngredients: List<ApiIngredient>,
+    val analyzedInstructions : List<ParsedInstructions>,
 
     )
