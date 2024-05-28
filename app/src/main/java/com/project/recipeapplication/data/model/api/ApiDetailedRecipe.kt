@@ -1,4 +1,4 @@
-package com.project.recipeapplication.data.model
+package com.project.recipeapplication.data.model.api
 
 data class ApiDetailedRecipe(
     val id : Int,
