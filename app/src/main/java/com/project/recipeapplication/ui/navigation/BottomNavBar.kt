@@ -33,12 +33,14 @@ import com.project.recipeapplication.ui.screens.Recipes
 import com.project.recipeapplication.ui.screens.Search
 import com.project.recipeapplication.ui.screens.ShoppingList
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
+import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
 
 @Composable
 fun BottomNavBar() {
     val navController = rememberNavController()
     val apiViewModel : ApiRecipesViewModel = viewModel()
+    val personalViewModel : PersonalRecipeViewModel = viewModel()
     var selectedNavItemIndex by rememberSaveable {
         mutableIntStateOf( 0)
     }
@@ -102,13 +104,13 @@ fun BottomNavBar() {
                     Search(navController = navController, viewModel = apiViewModel)
                 }
                 composable("recipes") {
-                    Recipes(navController = navController)
+                    Recipes(navController = navController, viewModel = personalViewModel)
                 }
                 composable("groceries") {
                     ShoppingList(navController = navController)
                 }
                 composable("addRecipe") {
-                    AddRecipe(navController = navController)
+                    AddRecipe(navController = navController, viewModel = personalViewModel)
                 }
                 composable("apiRecipeInfo") {
                     ApiRecipeInfo(navController = navController, viewModel = apiViewModel)
