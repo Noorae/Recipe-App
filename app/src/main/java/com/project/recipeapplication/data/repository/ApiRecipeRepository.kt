@@ -1,8 +1,8 @@
 package com.project.recipeapplication.data.repository
 
 import com.project.recipeapplication.data.api.RetrofitInstance
-import com.project.recipeapplication.data.model.ApiDetailedRecipe
-import com.project.recipeapplication.data.model.ApiRecipe
+import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
+import com.project.recipeapplication.data.model.api.ApiRecipe
 
 class ApiRecipeRepository() {
 

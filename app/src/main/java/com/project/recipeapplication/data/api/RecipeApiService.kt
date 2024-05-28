@@ -1,7 +1,7 @@
 package com.project.recipeapplication.data.api
 
-import com.project.recipeapplication.data.model.ApiDetailedRecipe
-import com.project.recipeapplication.data.model.ApiResponseData
+import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
+import com.project.recipeapplication.data.model.api.ApiResponseData
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

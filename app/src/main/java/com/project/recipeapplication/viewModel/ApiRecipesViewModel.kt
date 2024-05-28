@@ -9,8 +9,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.recipeapplication.BuildConfig
-import com.project.recipeapplication.data.model.ApiDetailedRecipe
-import com.project.recipeapplication.data.model.ApiRecipe
+import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
+import com.project.recipeapplication.data.model.api.ApiRecipe
 import com.project.recipeapplication.data.repository.ApiRecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
