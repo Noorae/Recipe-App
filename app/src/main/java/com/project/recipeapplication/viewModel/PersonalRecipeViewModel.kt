@@ -1,13 +1,16 @@
 package com.project.recipeapplication.viewModel
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.recipeapplication.R
-import com.project.recipeapplication.data.model.PersonalRecipe
-import com.project.recipeapplication.data.repository.ApiRecipeRepository
+import com.project.recipeapplication.data.model.database.Ingredient
+import com.project.recipeapplication.data.model.database.InstructionStep
+import com.project.recipeapplication.data.model.database.PersonalRecipe
+import com.project.recipeapplication.data.model.database.RecipeSummary
+import com.project.recipeapplication.data.model.database.Tag
 import com.project.recipeapplication.data.repository.PersonalRecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,41 +18,93 @@ import kotlinx.coroutines.launch
 
 class PersonalRecipeViewModel(): ViewModel() {
     private val repository = PersonalRecipeRepository()
-    private val _personalRecipes = MutableStateFlow<List<PersonalRecipe>>(emptyList())
-    val personalRecipes: StateFlow<List<PersonalRecipe>> = _personalRecipes
+    private val _personalRecipes = MutableStateFlow<List<RecipeSummary>>(emptyList())
+    val personalRecipes: StateFlow<List<RecipeSummary>> = _personalRecipes
 
-    // //TODO maybe move to a better place
+    //recipe data
     var recipeTitle by mutableStateOf("")
-    var recipeInstructions by mutableStateOf("")
+    var recipeImagePath by mutableStateOf("")
+    var recipeReady by mutableStateOf("")
+    var recipeMealType by mutableStateOf("")
+    var recipeServingSize by mutableStateOf(0)
+    var recipeIsFavorite by mutableStateOf(false)
+    var recipeInstructions = mutableStateListOf<InstructionStep>()
+    var recipeIngredients = mutableStateListOf<Ingredient>()
+    var recipeTags = mutableStateListOf<Tag>()
 
 
     init {
         fetchRecipes()
     }
 
+    // function to fetch recipe summary for all recipes
     fun fetchRecipes() {
         viewModelScope.launch {
             val recipes = repository.fetchRecipes()
             _personalRecipes.value = recipes
         }
-        println(personalRecipes)
     }
 
-    //TODO MODIFY THIS HELPER FUNCTION
-    private fun addMockRecipe(recipe: PersonalRecipe) {
+    // function to add a new recipe
+    private fun addNewRecipe(newRecipe: PersonalRecipe) {
         viewModelScope.launch {
-            repository.addRecipe(recipe)
+            repository.addRecipe(newRecipe, recipeIngredients, recipeInstructions, recipeTags)
             fetchRecipes()
         }
     }
 
+
+    //helper function to send new recipes
     fun collectRecipeData() {
+
         val newRecipe = PersonalRecipe(
             title = recipeTitle,
-            instructions = recipeInstructions,
-            imagePath = "will be added later"
+            imagePath = "will be added later",
+            readyInMinutes = recipeReady,
+            mealType = recipeMealType,
+            servingSize = recipeServingSize,
+            isFavorite = recipeIsFavorite
         )
-        addMockRecipe(newRecipe)
+
+        addNewRecipe(newRecipe)
+        clearAllFields()
+
     }
+
+    //Helper function to clean all fields
+    private fun clearAllFields() {
+        recipeTitle = ""
+        recipeImagePath = ""
+        recipeReady = ""
+        recipeMealType = ""
+        recipeServingSize = 0
+        recipeInstructions.clear()
+        recipeTags.clear()
+        recipeIngredients.clear()
+    }
+
+
+    //function to delete recipe by id
+    fun deleteRecipeById(recipeId : Int) {
+        viewModelScope.launch {
+            repository.deleteRecipeById(recipeId)
+            fetchRecipes()
+
+        }
+    }
+
+    // function that adds instruction step
+    fun addInstructionStep(step: InstructionStep) {
+        recipeInstructions.add(step)
+    }
+
+    // Update an instruction step
+    fun updateInstructionStep(index: Int, description: String) {
+        if (index >= 0 && index < recipeInstructions.size) {
+            val updatedStep = recipeInstructions[index].copy(description = description)
+            recipeInstructions[index] = updatedStep
+        }
+    }
+
 
 }
