@@ -64,7 +64,7 @@ fun Search(navController: NavController, viewModel: ApiRecipesViewModel) {
         LazyColumn(modifier = Modifier
             .weight(1f)
             .padding(5.dp)) {
-            items(recipes) { recipe ->
+            items(recipes, key = { recipe -> recipe.id}) { recipe ->
                 ListItem(
                     modifier = Modifier.clickable(onClick = {
                                         //viewModel.selectedId = recipe.id
