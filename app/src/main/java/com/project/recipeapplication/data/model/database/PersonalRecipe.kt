@@ -1,4 +1,4 @@
-package com.project.recipeapplication.data.model
+package com.project.recipeapplication.data.model.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,6 +8,10 @@ data class PersonalRecipe(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
-    val instructions: String,
-    val imagePath: String
+    val imagePath: String,
+    val readyInMinutes: String,
+    val mealType: String,
+    val servingSize: Int,
+    val isFavorite: Boolean
+
 )
