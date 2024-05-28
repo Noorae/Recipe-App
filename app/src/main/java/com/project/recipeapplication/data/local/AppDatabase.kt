@@ -2,9 +2,14 @@ package com.project.recipeapplication.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.project.recipeapplication.data.model.PersonalRecipe
+import androidx.room.TypeConverters
+import com.project.recipeapplication.data.model.database.Ingredient
+import com.project.recipeapplication.data.model.database.InstructionStep
+import com.project.recipeapplication.data.model.database.PersonalRecipe
+import com.project.recipeapplication.data.model.database.Tag
 
-@Database(entities = [PersonalRecipe::class], version = 1)
+@Database(entities = [PersonalRecipe::class, Ingredient::class, InstructionStep::class, Tag::class], version = 2)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun personalRecipeDao(): PersonalRecipeDao
 }
