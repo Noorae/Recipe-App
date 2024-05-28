@@ -32,6 +32,17 @@ class PersonalRecipeViewModel(): ViewModel() {
     var recipeIngredients = mutableStateListOf<Ingredient>()
     var recipeTags = mutableStateListOf<Tag>()
 
+    //ingredients data
+    var ingredientAmount by mutableStateOf(0.0)
+    var ingredientUnit by mutableStateOf("")
+    var ingredientName by mutableStateOf("")
+
+    //Instruction step data
+    var instructionDescription by mutableStateOf("")
+
+    //tag data
+    var tagDescription by mutableStateOf("")
+
 
     init {
         fetchRecipes()
@@ -48,7 +59,12 @@ class PersonalRecipeViewModel(): ViewModel() {
     // function to add a new recipe
     private fun addNewRecipe(newRecipe: PersonalRecipe) {
         viewModelScope.launch {
-            repository.addRecipe(newRecipe, recipeIngredients, recipeInstructions, recipeTags)
+            repository.addRecipe(
+                newRecipe,
+                recipeIngredients.toList(),
+                recipeInstructions.toList(),
+                recipeTags.toList()
+            )
             fetchRecipes()
         }
     }
@@ -65,6 +81,8 @@ class PersonalRecipeViewModel(): ViewModel() {
             servingSize = recipeServingSize,
             isFavorite = recipeIsFavorite
         )
+
+
 
         addNewRecipe(newRecipe)
         clearAllFields()
@@ -93,18 +111,47 @@ class PersonalRecipeViewModel(): ViewModel() {
         }
     }
 
-    // function that adds instruction step
-    fun addInstructionStep(step: InstructionStep) {
-        recipeInstructions.add(step)
+    fun addIngredient() {
+            recipeIngredients.add(
+                Ingredient(
+                    recipeId = 0,
+                    amount = ingredientAmount,
+                    unit = ingredientUnit,
+                    name = ingredientName
+                )
+            )
+
+
+        ingredientAmount = 0.0
+        ingredientUnit = ""
+        ingredientName = ""
     }
 
-    // Update an instruction step
-    fun updateInstructionStep(index: Int, description: String) {
-        if (index >= 0 && index < recipeInstructions.size) {
-            val updatedStep = recipeInstructions[index].copy(description = description)
-            recipeInstructions[index] = updatedStep
-        }
+    fun addInstruction() {
+            recipeInstructions.add(
+                InstructionStep(
+                    recipeId = 0,
+                    stepNumber = recipeInstructions.size + 1,
+                    description = instructionDescription
+                )
+            )
+
+
+
+        instructionDescription = ""
     }
 
+    fun addTag() {
+            recipeTags.add(
+                Tag(
+                    recipeId = 0,
+                    tagName = tagDescription
+                )
+            )
+
+
+        tagDescription = ""
+        println(recipeTags)
+    }
 
 }
