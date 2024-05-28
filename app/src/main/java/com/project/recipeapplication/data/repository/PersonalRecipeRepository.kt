@@ -28,12 +28,14 @@ class PersonalRecipeRepository() {
             ingredients.forEach {it.recipeId = recipeId }
             println("Successfully added ingredients to recipe with id $recipeId")
             MainActivity.database.personalRecipeDao().insertIngredients(ingredients)
-        }
+        } else {println("ingredients list was empty")}
         if (instructions.isNotEmpty()) {
             instructions.forEach {it.recipeId = recipeId}
             println("Successfully added instructions to recipe with id $recipeId")
             MainActivity.database.personalRecipeDao().insertInstructionSteps(instructions)
 
+        } else {
+            println("instructions list was empty")
         }
 
         if (tags.isNotEmpty()) {
@@ -41,6 +43,8 @@ class PersonalRecipeRepository() {
             println("Successfully added tags with id $recipeId")
             MainActivity.database.personalRecipeDao().insertTags(tags)
 
+        } else {
+            println("instructions list was empty")
         }
 
     }
