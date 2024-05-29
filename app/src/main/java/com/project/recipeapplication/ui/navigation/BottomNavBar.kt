@@ -34,13 +34,14 @@ import com.project.recipeapplication.ui.screens.Search
 import com.project.recipeapplication.ui.screens.ShoppingList
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
+import com.project.recipeapplication.viewModel.ShoppingViewModel
 
 
 @Composable
-fun BottomNavBar() {
+fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
+                 personalRecipeViewModel: PersonalRecipeViewModel,
+                 shoppingViewModel: ShoppingViewModel){
     val navController = rememberNavController()
-    val apiViewModel : ApiRecipesViewModel = viewModel()
-    val personalViewModel : PersonalRecipeViewModel = viewModel()
     var selectedNavItemIndex by rememberSaveable {
         mutableIntStateOf( 0)
     }
@@ -101,19 +102,19 @@ fun BottomNavBar() {
                     Dashboard(navController = navController)
                 }
                 composable("search") {
-                    Search(navController = navController, viewModel = apiViewModel)
+                    Search(navController = navController, viewModel = apiRecipeViewModel)
                 }
                 composable("recipes") {
-                    Recipes(navController = navController, viewModel = personalViewModel)
+                    Recipes(navController = navController, viewModel = personalRecipeViewModel)
                 }
                 composable("groceries") {
-                    ShoppingList(navController = navController)
+                    ShoppingList(navController = navController, viewModel = shoppingViewModel)
                 }
                 composable("addRecipe") {
-                    AddRecipe(navController = navController, viewModel = personalViewModel)
+                    AddRecipe(navController = navController, viewModel = personalRecipeViewModel)
                 }
                 composable("apiRecipeInfo") {
-                    ApiRecipeInfo(navController = navController, viewModel = apiViewModel)
+                    ApiRecipeInfo(navController = navController, viewModel = apiRecipeViewModel)
                 }
             }
         }
