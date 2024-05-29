@@ -21,13 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.project.recipeapplication.data.model.database.ApiFavoriteRecipe
+import com.project.recipeapplication.ui.components.ApiFavoriteRecipeList
 import com.project.recipeapplication.ui.components.CustomTopBar
 import com.project.recipeapplication.ui.components.RecipeList
 import com.project.recipeapplication.ui.components.RecipesTabs
+import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
 @Composable
-fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel) {
+fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel, apiViewModel : ApiRecipesViewModel) {
     val recipeState = viewModel.personalRecipes.collectAsState()
     val personalRecipes = recipeState.value
     var selectedTabIndex by remember { mutableIntStateOf(0) }
@@ -52,7 +55,7 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel) {
         Box(modifier = Modifier.fillMaxSize()) {
             when (selectedTabIndex) {
                 0 -> RecipeList(viewModel = viewModel)
-                1 -> Text(text = "Apin favoritet")
+                1 -> ApiFavoriteRecipeList(navController, viewModel = apiViewModel)
             }
             
             ExtendedFloatingActionButton(
