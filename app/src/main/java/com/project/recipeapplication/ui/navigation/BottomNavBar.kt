@@ -105,7 +105,7 @@ fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
                     Search(navController = navController, viewModel = apiRecipeViewModel)
                 }
                 composable("recipes") {
-                    Recipes(navController = navController, viewModel = personalRecipeViewModel)
+                    Recipes(navController = navController, viewModel = personalRecipeViewModel, apiViewModel = apiRecipeViewModel)
                 }
                 composable("groceries") {
                     ShoppingList(navController = navController, viewModel = shoppingViewModel)
