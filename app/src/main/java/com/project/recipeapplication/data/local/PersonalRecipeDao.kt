@@ -5,12 +5,14 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import androidx.room.Upsert
 import com.project.recipeapplication.data.model.database.Ingredient
 import com.project.recipeapplication.data.model.database.InstructionStep
 import com.project.recipeapplication.data.model.database.PersonalRecipe
 import com.project.recipeapplication.data.model.database.RecipeSummary
 import com.project.recipeapplication.data.model.database.RecipeWithFullData
+import com.project.recipeapplication.data.model.database.ShoppingItem
 import com.project.recipeapplication.data.model.database.Tag
 
 @Dao
@@ -43,4 +45,18 @@ interface PersonalRecipeDao {
 
     @Query("DELETE FROM recipes WHERE id = :id")
     suspend fun deleteRecipeById(id: Int)
+
+    @Query("SELECT id, name, itemChecked FROM shopping_items")
+    suspend fun getShoppingList(): List<ShoppingItem>
+
+    //Add new shopping item
+    @Insert
+    suspend fun insertShoppingItem(shoppingItem: ShoppingItem)
+
+    @Update
+    suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
+
+    @Delete
+    suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
+
 }
