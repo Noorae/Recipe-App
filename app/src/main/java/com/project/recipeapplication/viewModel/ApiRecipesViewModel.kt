@@ -11,6 +11,8 @@ import androidx.lifecycle.viewModelScope
 import com.project.recipeapplication.BuildConfig
 import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.api.ApiRecipe
+import com.project.recipeapplication.data.model.database.ApiFavoriteRecipe
+import com.project.recipeapplication.data.model.database.RecipeSummary
 import com.project.recipeapplication.data.repository.ApiRecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,6 +30,15 @@ class ApiRecipesViewModel : ViewModel() {
 
     private var _selectedRecipeDetails = MutableStateFlow<ApiDetailedRecipe?>(null)
     val selectedRecipeDetails: StateFlow<ApiDetailedRecipe?> get() = _selectedRecipeDetails
+
+    //saved favorite recipes
+    private val _apiFavoriteRecipes: SnapshotStateList<ApiFavoriteRecipe> = mutableStateListOf()
+    val apiFavoriteRecipes: List<ApiFavoriteRecipe> get() = _apiFavoriteRecipes
+
+    init {
+        fetchFavoriteRecipes()
+    }
+
 
 
 
@@ -76,6 +87,34 @@ class ApiRecipesViewModel : ViewModel() {
 
         }
 
+    }
+    //function to fetch favorite recipes
+
+    fun fetchFavoriteRecipes() {
+        viewModelScope.launch {
+            val recipes = repository.fetchFavoriteRecipes()
+            _apiFavoriteRecipes.clear()
+            _apiFavoriteRecipes.addAll(recipes)
+        }
+    }
+
+    //function to add api recipe to favorites
+    fun addToFavorites(recipe: ApiFavoriteRecipe) {
+        viewModelScope.launch {
+            repository.addRecipeToFavorites(recipe)
+            fetchFavoriteRecipes()
+        }
+    }
+
+    fun deleteFromFavorites(recipe: ApiFavoriteRecipe) {
+        viewModelScope.launch {
+            repository.deleteFromFavorites(recipe)
+            fetchFavoriteRecipes()
+        }
+    }
+
+    fun isFavorite(recipeId: Int): Boolean {
+        return _apiFavoriteRecipes.any { it.apiId == recipeId }
     }
 
 
