@@ -56,5 +56,8 @@ class PersonalRecipeRepository() {
 
     suspend fun deleteRecipeById(id : Int) {
         RecipeApplication.database.personalRecipeDao().deleteRecipeById(id)
+        RecipeApplication.database.personalRecipeDao().deleteIngredientsByRecipeId(id)
+        RecipeApplication.database.personalRecipeDao().deleteInstructionStepsByRecipeId(id)
+        RecipeApplication.database.personalRecipeDao().deleteTagsByRecipeId(id)
     }
 }
