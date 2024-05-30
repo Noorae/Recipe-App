@@ -23,9 +23,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.project.recipeapplication.ui.components.AddRecipe
 import com.project.recipeapplication.ui.components.ApiRecipeInfo
 import com.project.recipeapplication.ui.components.PersonalRecipeInfo
@@ -106,9 +108,11 @@ fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
                 composable("search") {
                     Search(navController = navController, viewModel = apiRecipeViewModel)
                 }
-                composable("recipes") {
-                    Recipes(navController = navController, viewModel = personalRecipeViewModel, apiViewModel = apiRecipeViewModel)
-                }
+                composable("recipes?selectTab={selectTab}",
+                    arguments = listOf(navArgument("selectTab") { type = NavType.IntType; defaultValue = 0 })
+                ) { backStackEntry ->
+                    val selectedTab = backStackEntry.arguments?.getInt("selectTab") ?: 0
+                    Recipes(navController = navController, viewModel = personalRecipeViewModel, apiViewModel = apiRecipeViewModel, selectedTabIndex = selectedTab) }
                 composable("groceries") {
                     ShoppingList(navController = navController, viewModel = shoppingViewModel)
                 }
