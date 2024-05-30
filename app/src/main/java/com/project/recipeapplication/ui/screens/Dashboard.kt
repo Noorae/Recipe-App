@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,8 +33,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.recipeapplication.R
@@ -44,9 +49,10 @@ fun Dashboard(navController: NavController, isDarkTheme: Boolean, onToggleTheme:
     val recipe = viewModel.selectedRecipeDetails.collectAsState()
     val selectedRecipe = recipe.value
 
+
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(horizontal = 16.dp),
+        .padding(horizontal = 16.dp).verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -126,59 +132,60 @@ fun Dashboard(navController: NavController, isDarkTheme: Boolean, onToggleTheme:
 
         }
         Divider()
-        Text(text = "Quick access")
-        Row {
-            Box(modifier = Modifier.weight(1f)) {
-                Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp),
-                    onClick = { navController.navigate("addRecipe") }) {
-                    Text(text = "Add new recipe")
+        Text(text = "Quick access",  fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp), color = MaterialTheme.colorScheme.primary )
+
+        Column(modifier = Modifier.padding(bottom = 20.dp, top = 20.dp)) {
+            Row {
+                Box(modifier = Modifier.weight(1f)) {
+                    Button(shape = RoundedCornerShape(10.dp),modifier = Modifier
+                        .fillMaxWidth()
+                        .size(90.dp)
+                        .padding(4.dp),
+                        onClick = { navController.navigate("addRecipe") }) {
+                        Text(text = "Add new recipe")
+                    }
+
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    Button(shape = RoundedCornerShape(10.dp),modifier = Modifier
+                        .fillMaxWidth()
+                        .size(89.dp)
+                        .padding(4.dp),onClick = { navController.navigate("groceries") }) {
+                        Text(text = "Shopping List")
+                    }
+
                 }
 
             }
-            Box(modifier = Modifier.weight(1f)) {
-                Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp),onClick = { navController.navigate("groceries") }) {
-                    Text(text = "Shopping List")
+            Row {
+                Box(modifier = Modifier.weight(1f)) {
+                    Button(shape = RoundedCornerShape(10.dp), modifier = Modifier
+                        .fillMaxWidth()
+                        .size(100.dp)
+                        .padding(4.dp), onClick = { navController.navigate("recipes?selectTab=1") }) {
+                        Text(text = "Saved Inspirations")
+                    }
+
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    Button(shape = RoundedCornerShape(10.dp),modifier = Modifier
+                        .fillMaxWidth()
+                        .size(100.dp)
+                        .padding(4.dp),
+                        onClick = {
+                            viewModel.fetchNewestRecipeData()
+                            navController.navigate("personalRecipeInfo")
+
+                        }) {
+                        Text(text = "Newest recipe")
+                    }
+
                 }
 
             }
-
         }
-        Row {
-            Box(modifier = Modifier.weight(1f)) {
-                Button( modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp), onClick = { /*TODO*/ }) {
-                    Text(text = "Saved Inspirations")
-                }
 
-            }
-            Box(modifier = Modifier.weight(1f)) {
-                Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp),onClick = { /*TODO*/ }) {
-                    Text(text = "Newest recipe")
-                }
-
-            }
-
-        }
         Divider()
-        Box(modifier = Modifier
-            .padding(10.dp)
-            .fillMaxWidth()
-            .align(Alignment.CenterHorizontally)) {
-            Card(modifier = Modifier
-                .align(Alignment.Center)
-                .fillMaxWidth()) {
-                Text(text= "Recipe Stats")
-
-            }
-        }
-
 
 
     }
