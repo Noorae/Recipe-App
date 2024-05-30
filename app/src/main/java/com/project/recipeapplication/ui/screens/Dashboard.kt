@@ -6,9 +6,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -29,19 +34,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.recipeapplication.R
+import com.project.recipeapplication.ui.components.CustomSettingsTopBar
 import com.project.recipeapplication.ui.components.CustomTopBar
 
 @Composable
-fun Dashboard(navController: NavController) {
+fun Dashboard(navController: NavController, isDarkTheme: Boolean, onToggleTheme: (Boolean) -> Unit) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CustomTopBar(
+        CustomSettingsTopBar(
             title = "Dashboard" ,
-            navController =  navController
+            navController =  navController,
+            isDarkTheme = isDarkTheme,
+            onToggleTheme = onToggleTheme
         )
         Divider()
         ElevatedCard(
@@ -72,9 +80,8 @@ fun Dashboard(navController: NavController) {
                         .padding(8.dp)
                 ) {
                     Text(
-                        text = "Päivän reseptisuositus",
+                        text = "Daily Recommendation",
                         style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier
                             .padding(end = 8.dp),
                         textAlign = TextAlign.End
@@ -82,7 +89,6 @@ fun Dashboard(navController: NavController) {
                     Text(
                         text = "Makaronilaatikko",
                         style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier
                             .padding( end = 8.dp),
                         textAlign = TextAlign.End
@@ -97,46 +103,59 @@ fun Dashboard(navController: NavController) {
 
         }
         Divider()
+        Text(text = "Quick access")
         Row {
-            ElevatedCard(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                ),
-                modifier = Modifier
-                    .size(width = 180.dp, height = 150.dp)
-                    .padding(15.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
+            Box(modifier = Modifier.weight(1f)) {
+                Button(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp),
+                    onClick = { navController.navigate("addRecipe") }) {
+                    Text(text = "Add new recipe")
+                }
 
-            ) {
-                Text(
-                text = " Omat Suosikit",
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.outlineVariant,
-                modifier = Modifier
-                    .padding(8.dp),
-                )
             }
-            ElevatedCard(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                ),
-                modifier = Modifier
-                    .size(width = 180.dp, height = 150.dp)
-                    .padding(15.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
+            Box(modifier = Modifier.weight(1f)) {
+                Button(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp),onClick = { navController.navigate("groceries") }) {
+                    Text(text = "Shopping List")
+                }
 
-            ) {
-                Text(
-                    text = "Tallennetut inspiraatiot",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.outlineVariant,
-                    modifier = Modifier
-                        .padding(8.dp),
-                )
+            }
+
+        }
+        Row {
+            Box(modifier = Modifier.weight(1f)) {
+                Button( modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp), onClick = { /*TODO*/ }) {
+                    Text(text = "Saved Inspirations")
+                }
+
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                Button(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp),onClick = { /*TODO*/ }) {
+                    Text(text = "Newest recipe")
+                }
+
             }
 
         }
         Divider()
+        Box(modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .align(Alignment.CenterHorizontally)) {
+            Card(modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth()) {
+                Text(text= "Recipe Stats")
+
+            }
+        }
+
 
 
     }
