@@ -144,6 +144,18 @@ class PersonalRecipeViewModel(): ViewModel() {
         fetchRandomRecipeData()
     }
 
+    //fetch newest recipe data
+    fun fetchNewestRecipeData() {
+        viewModelScope.launch {
+            val details = repository.getNewestRecipe()
+            _selectedRecipeDetails.value = details
+
+            println(selectedRecipeDetails)
+
+        }
+
+    }
+
 
     //function to delete recipe by id
     fun deleteRecipeById(recipeId : Int) {
