@@ -7,7 +7,6 @@
 - [Description](#Description)
 - [Built With](#Built-With)
 - [Usage](#Usage)
-- [License](#License)
 - [Contact](#Contact)
   <!-- /Table of Contents -->
 
