@@ -51,12 +51,18 @@ interface PersonalRecipeDao {
     @Query("DELETE FROM tags WHERE recipeId = :recipeId")
     suspend fun deleteTagsByRecipeId(recipeId: Int)
 
+    //get recipe with full data
     @Transaction
     @Query("SELECT * FROM recipes WHERE id = :recipeId")
     suspend fun getRecipeWithFullData(recipeId: Int): RecipeWithFullData
 
     @Query("SELECT id, name, itemChecked FROM shopping_items")
     suspend fun getShoppingList(): List<ShoppingItem>
+
+    //get random recipe with full data
+    @Transaction
+    @Query("SELECT * FROM recipes ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomRecipe(): RecipeWithFullData
 
     //Add new shopping item
     @Insert
