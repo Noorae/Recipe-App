@@ -60,4 +60,8 @@ class PersonalRecipeRepository() {
         RecipeApplication.database.personalRecipeDao().deleteInstructionStepsByRecipeId(id)
         RecipeApplication.database.personalRecipeDao().deleteTagsByRecipeId(id)
     }
+
+    suspend fun getRandomRecipe() : RecipeWithFullData {
+        return RecipeApplication.database.personalRecipeDao().getRandomRecipe()
+    }
 }
