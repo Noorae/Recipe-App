@@ -54,17 +54,21 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel, ap
 
         Box(modifier = Modifier.fillMaxSize()) {
             when (selectedTabIndex) {
-                0 -> RecipeList(viewModel = viewModel)
+                0 ->  {
+                    RecipeList(navController, viewModel = viewModel)
+                    ExtendedFloatingActionButton(
+                        text = { Text(text = "new recipe") },
+                        icon = { Icon(Icons.Filled.Create, "Extended floating action button") },
+                        onClick = { navController.navigate("addRecipe") },
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.BottomEnd)
+                    )
+                }
                 1 -> ApiFavoriteRecipeList(navController, viewModel = apiViewModel)
             }
             
-            ExtendedFloatingActionButton(
-                text = { Text(text = "new recipe") },
-                icon = { Icon(Icons.Filled.Create, "Extended floating action button") },
-                onClick = { navController.navigate("addRecipe") },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.BottomEnd))
+
 
         }
 
