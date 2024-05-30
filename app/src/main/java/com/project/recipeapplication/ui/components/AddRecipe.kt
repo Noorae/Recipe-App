@@ -48,7 +48,8 @@ fun AddRecipe(navController: NavController, viewModel: PersonalRecipeViewModel) 
         CustomTopBar(
             title = "Add new recipe" ,
             navController =  navController,
-            showBackButton = true
+            showBackButton = true,
+
         )
         Divider()
         Column(modifier= Modifier.padding(vertical = 10.dp)) {
