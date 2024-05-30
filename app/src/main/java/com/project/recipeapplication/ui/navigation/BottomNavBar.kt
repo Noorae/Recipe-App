@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.project.recipeapplication.ui.components.AddRecipe
 import com.project.recipeapplication.ui.components.ApiRecipeInfo
+import com.project.recipeapplication.ui.components.PersonalRecipeInfo
 import com.project.recipeapplication.ui.screens.Dashboard
 import com.project.recipeapplication.ui.screens.Recipes
 import com.project.recipeapplication.ui.screens.Search
@@ -40,11 +41,12 @@ import com.project.recipeapplication.viewModel.ShoppingViewModel
 @Composable
 fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
                  personalRecipeViewModel: PersonalRecipeViewModel,
-                 shoppingViewModel: ShoppingViewModel){
+                 shoppingViewModel: ShoppingViewModel,
+                 isDarkTheme : Boolean,
+                 onToggleTheme : (Boolean) -> Unit)
+{
     val navController = rememberNavController()
-    var selectedNavItemIndex by rememberSaveable {
-        mutableIntStateOf( 0)
-    }
+    var selectedNavItemIndex by rememberSaveable { mutableIntStateOf( 0) }
 
     val bottomNavItems = listOf(
     BottomNavBarItem(
@@ -99,7 +101,7 @@ fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
         innerPadding -> Box(modifier = Modifier.padding(innerPadding)) {
             NavHost(navController = navController, startDestination = "dashboard") {
                 composable("dashboard") {
-                    Dashboard(navController = navController)
+                    Dashboard(navController = navController, isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme)
                 }
                 composable("search") {
                     Search(navController = navController, viewModel = apiRecipeViewModel)
@@ -115,6 +117,9 @@ fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
                 }
                 composable("apiRecipeInfo") {
                     ApiRecipeInfo(navController = navController, viewModel = apiRecipeViewModel)
+                }
+                composable("personalRecipeInfo") {
+                    PersonalRecipeInfo(navController = navController, viewModel = personalRecipeViewModel)
                 }
             }
         }
