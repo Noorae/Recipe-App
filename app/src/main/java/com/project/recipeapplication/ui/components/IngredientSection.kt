@@ -14,6 +14,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
+/**
+ * Composable function for displaying the ingredients section of a recipe.
+ *
+ * @param viewModel The view model containing the logic for managing personal recipes.
+ */
 @Composable
 fun IngredientsSection(viewModel: PersonalRecipeViewModel) {
     Column(modifier = Modifier.padding(vertical = 10.dp)) {

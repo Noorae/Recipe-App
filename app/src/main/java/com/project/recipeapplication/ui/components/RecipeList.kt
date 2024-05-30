@@ -29,7 +29,13 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.recipeapplication.R
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
-
+/**
+ * Composable function for displaying a list of recipes.
+ *
+ * @param navController The NavController for navigation within the application.
+ * @param modifier Modifier for styling or positioning the recipe list.
+ * @param viewModel The view model containing the logic for managing personal recipes.
+ */
 @Composable
 fun RecipeList(navController : NavController, modifier: Modifier = Modifier, viewModel: PersonalRecipeViewModel) {
     val recipeState = viewModel.personalRecipes.collectAsState()

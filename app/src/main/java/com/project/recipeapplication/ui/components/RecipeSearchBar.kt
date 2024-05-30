@@ -13,7 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+/**
+ * Composable function for displaying a search bar for recipes.
+ *
+ * @param searchQuery The current search query entered by the user.
+ * @param onQueryChange A callback function to handle changes in the search query.
+ * @param onSearch A callback function to trigger the search action.
+ * @param modifier Modifier for styling or positioning the search bar.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeSearchBar(searchQuery: String,

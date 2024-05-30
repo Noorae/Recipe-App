@@ -17,7 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
-
+/**
+ * Composable function for adding a new recipe.
+ *
+ * @param navController The navigation controller for navigating between composables.
+ * @param viewModel The view model containing the logic for managing personal recipes.
+ */
 @Composable
 fun AddRecipe(navController: NavController, viewModel: PersonalRecipeViewModel) {
     val scrollState = rememberScrollState()
@@ -29,6 +34,7 @@ fun AddRecipe(navController: NavController, viewModel: PersonalRecipeViewModel) 
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         CustomTopBar(
             title = "Add new recipe" ,
             navController =  navController,

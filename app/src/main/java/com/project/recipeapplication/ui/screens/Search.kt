@@ -34,7 +34,12 @@ import com.project.recipeapplication.data.model.database.ApiFavoriteRecipe
 import com.project.recipeapplication.ui.components.CustomTopBar
 import com.project.recipeapplication.ui.components.RecipeSearchBar
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
-
+/**
+ * Composable function representing the search screen for recipe inspiration.
+ *
+ * @param navController The navigation controller to handle navigation.
+ * @param viewModel The view model for managing API recipe data.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Search(navController: NavController, viewModel: ApiRecipesViewModel) {

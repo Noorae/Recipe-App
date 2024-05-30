@@ -27,7 +27,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.project.recipeapplication.viewModel.ShoppingViewModel
-
+/**
+ * Composable function for displaying the list of shopping items.
+ *
+ * @param viewModel The view model containing the shopping list data and logic.
+ */
 @Composable
 fun ShoppingItems(viewModel: ShoppingViewModel) {
     val shoppingItems by viewModel.shoppinglist.collectAsState()

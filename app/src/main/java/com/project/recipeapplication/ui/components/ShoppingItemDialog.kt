@@ -14,7 +14,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
+/**
+ * Composable function for displaying a dialog to add a new shopping item.
+ *
+ * @param onDismiss Callback function invoked when the dialog is dismissed.
+ * @param onAddItem Callback function invoked when a new item is added. It returns the name of the added item.
+ */
 @Composable
 fun ShoppingItemDialog(onDismiss: () -> Unit, onAddItem: (String) -> Unit) {
     var itemName by remember { mutableStateOf("") }

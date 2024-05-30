@@ -17,6 +17,10 @@ import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 import com.project.recipeapplication.viewModel.ShoppingViewModel
 
+/**
+ * Main activity for the Recipe Application.
+ * This activity sets up the main content view and handles theme preferences.
+ */
 class MainActivity : ComponentActivity() {
     private lateinit var themePreferences: ThemePreference
 
@@ -25,7 +29,11 @@ class MainActivity : ComponentActivity() {
     private val shoppingViewModel: ShoppingViewModel by viewModels()
 
 
-
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in [onSaveInstanceState]. **Note: Otherwise it is null.**
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

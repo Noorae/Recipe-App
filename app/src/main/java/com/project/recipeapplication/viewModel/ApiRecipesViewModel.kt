@@ -17,6 +17,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel class responsible for managing API recipe data.
+ */
 class ApiRecipesViewModel : ViewModel() {
     private val repository = ApiRecipeRepository()
     private val _results : SnapshotStateList<ApiRecipe> = mutableStateListOf<ApiRecipe>()
@@ -34,23 +37,28 @@ class ApiRecipesViewModel : ViewModel() {
     private val _apiFavoriteRecipes: SnapshotStateList<ApiFavoriteRecipe> = mutableStateListOf()
     val apiFavoriteRecipes: List<ApiFavoriteRecipe> get() = _apiFavoriteRecipes
 
+    /**
+     * Initializes the ViewModel by fetching favorite recipes.
+     */
     init {
         fetchFavoriteRecipes()
     }
 
-
-
-
-    //function to take a new searchQuery
+    /**
+     * Updates the search query for recipe search.
+     *
+     * @param newQuery The new search query.
+     */
     fun updateSearchQuery(newQuery: String) {
         searchQuery = newQuery
     }
 
-    //function that fetches a list of recipes matching search terms
+    /**
+     * Fetches a list of recipes matching the search query.
+     */
     fun fetchRecipes() {
         val apiKey = BuildConfig.API_KEY
 
-        //TODO change hard coded parameters into variables
         viewModelScope.launch {
             val recipeList = repository.fetchRecipes(
                 searchQuery,
@@ -68,7 +76,11 @@ class ApiRecipesViewModel : ViewModel() {
 
     }
 
-    //function that fetches detailed recipe data
+    /**
+     * Fetches detailed information for a specific recipe.
+     *
+     * @param recipeId The ID of the recipe.
+     */
     fun fetchRecipeDetails(recipeId: Int) {
         val apiKey = BuildConfig.API_KEY
 
@@ -87,9 +99,11 @@ class ApiRecipesViewModel : ViewModel() {
         }
 
     }
-    //function to fetch favorite recipes
 
-    fun fetchFavoriteRecipes() {
+    /**
+     * Fetches favorite recipes.
+     */
+    private fun fetchFavoriteRecipes() {
         viewModelScope.launch {
             val recipes = repository.fetchFavoriteRecipes()
             _apiFavoriteRecipes.clear()
@@ -97,7 +111,11 @@ class ApiRecipesViewModel : ViewModel() {
         }
     }
 
-    //function to add api recipe to favorites
+    /**
+     * Adds a recipe to favorites.
+     *
+     * @param recipe The recipe to add to favorites.
+     */
     fun addToFavorites(recipe: ApiFavoriteRecipe) {
         viewModelScope.launch {
             repository.addRecipeToFavorites(recipe)
@@ -105,6 +123,11 @@ class ApiRecipesViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Deletes a recipe from favorites.
+     *
+     * @param recipe The recipe to delete from favorites.
+     */
     fun deleteFromFavorites(recipe: ApiFavoriteRecipe) {
         viewModelScope.launch {
             repository.deleteFromFavorites(recipe)
@@ -112,6 +135,12 @@ class ApiRecipesViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Checks if a recipe with the specified ID is in favorites.
+     *
+     * @param recipeId The ID of the recipe to check.
+     * @return `true` if the recipe is in favorites, `false` otherwise.
+     */
     fun isFavorite(recipeId: Int): Boolean {
         return _apiFavoriteRecipes.any { it.apiId == recipeId }
     }

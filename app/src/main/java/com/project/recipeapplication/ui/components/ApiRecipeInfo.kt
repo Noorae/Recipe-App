@@ -41,7 +41,12 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.recipeapplication.R
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
-
+/**
+ * Composable function for displaying details of a recipe fetched from an API.
+ *
+ * @param navController The navigation controller for navigating between composables.
+ * @param viewModel The view model containing the logic for managing API recipes.
+ */
 @Composable
 fun ApiRecipeInfo(navController: NavController, viewModel: ApiRecipesViewModel) {
 

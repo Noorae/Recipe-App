@@ -28,14 +28,19 @@ import com.project.recipeapplication.ui.components.RecipesTabs
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
+/**
+ * Composable function representing the recipes screen.
+ *
+ * @param navController The navigation controller to handle navigation.
+ * @param viewModel The view model for managing personal recipe data.
+ * @param apiViewModel The view model for managing API recipe data.
+ * @param selectedTabIndex The index of the selected tab.
+ */
 @Composable
 fun Recipes(navController: NavController,
             viewModel: PersonalRecipeViewModel,
             apiViewModel : ApiRecipesViewModel,
             selectedTabIndex: Int) {
-    val recipeState = viewModel.personalRecipes.collectAsState()
-    val personalRecipes = recipeState.value
-    //var selectedTabIndex by remember { mutableIntStateOf(0) }
     var tabIndex by rememberSaveable { mutableIntStateOf(selectedTabIndex) }
 
 

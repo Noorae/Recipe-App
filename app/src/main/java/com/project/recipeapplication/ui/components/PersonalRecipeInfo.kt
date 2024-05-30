@@ -44,7 +44,12 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.recipeapplication.R
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
-
+/**
+ * Composable function for displaying the details of a personal recipe.
+ *
+ * @param navController The NavController for navigation within the application.
+ * @param viewModel The view model containing the logic for managing personal recipes.
+ */
 @Composable
 fun PersonalRecipeInfo(navController: NavController, viewModel: PersonalRecipeViewModel) {
     val recipe = viewModel.selectedRecipeDetails.collectAsState()

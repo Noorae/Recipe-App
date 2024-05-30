@@ -23,7 +23,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
-
+/**
+ * Composable function for displaying an image selection section.
+ *
+ * @param viewModel The view model containing the logic for managing personal recipes.
+ */
 @Composable
 fun ImageSection(viewModel : PersonalRecipeViewModel) {
     val context = LocalContext.current

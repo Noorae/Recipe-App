@@ -38,7 +38,15 @@ import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 import com.project.recipeapplication.viewModel.ShoppingViewModel
 
-
+/**
+ * Composable function for displaying a bottom navigation bar.
+ *
+ * @param apiRecipeViewModel The view model for API recipes.
+ * @param personalRecipeViewModel The view model for personal recipes.
+ * @param shoppingViewModel The view model for shopping lists.
+ * @param isDarkTheme Boolean value indicating whether the app is in dark mode.
+ * @param onToggleTheme Lambda function to toggle the theme between light and dark modes.
+ */
 @Composable
 fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
                  personalRecipeViewModel: PersonalRecipeViewModel,

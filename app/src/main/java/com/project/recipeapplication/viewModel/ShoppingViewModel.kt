@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing the shopping list in the application.
+ */
 class ShoppingViewModel() : ViewModel() {
     private val repository = ShoppingListRepository()
     private val _shoppinglist = MutableStateFlow<List<ShoppingItem>>(emptyList())
@@ -24,7 +27,9 @@ class ShoppingViewModel() : ViewModel() {
         fetchShoppingList()
     }
 
-    // function to fetch shoppinglist
+    /**
+     * Fetches the shopping list from the repository.
+     */
     fun fetchShoppingList() {
         viewModelScope.launch {
             val result = repository.fetchShoppingList()
@@ -33,10 +38,12 @@ class ShoppingViewModel() : ViewModel() {
     }
 
 
-    // function to add a new item to shoppinglist
+    /**
+     * Adds a new item to the shopping list.
+     *
+     * @param newItem The item to be added.
+     */
     fun addNewItem(newItem: ShoppingItem) {
-
-
 
         viewModelScope.launch {
             repository.addShoppingItem(newItem)
@@ -44,6 +51,11 @@ class ShoppingViewModel() : ViewModel() {
         }
     }
 
+    /**
+     * Updates the checkbox state of a shopping item.
+     *
+     * @param item The item to be updated.
+     */
     fun updateCheckBox(item: ShoppingItem) {
         viewModelScope.launch {
             val updatedItem = item.copy(itemChecked = !item.itemChecked)
@@ -53,15 +65,28 @@ class ShoppingViewModel() : ViewModel() {
         }
     }
 
+    /**
+     * Starts editing a shopping item.
+     *
+     * @param item The item to be edited.
+     */
     fun startEditing(item: ShoppingItem) {
         _editedItemId.value = item.id
         _editedItemName.value = item.name
     }
 
+    /**
+     * Updates the name of the item being edited.
+     *
+     * @param name The new name for the item.
+     */
     fun updateEditedName(name: String) {
         _editedItemName.value = name
     }
 
+    /**
+     * Saves the edited item.
+     */
     fun saveEditedItem() {
         val editedId = _editedItemId.value
         if (editedId != null) {
@@ -77,6 +102,11 @@ class ShoppingViewModel() : ViewModel() {
         _editedItemName.value = ""
     }
 
+    /**
+     * Deletes a shopping item from the list.
+     *
+     * @param item The item to be deleted.
+     */
     fun deleteShoppingItem(item: ShoppingItem) {
         viewModelScope.launch {
             repository.removeShoppingItem(item)

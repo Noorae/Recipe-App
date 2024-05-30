@@ -38,6 +38,14 @@ import com.project.recipeapplication.R
 import com.project.recipeapplication.ui.components.CustomSettingsTopBar
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
+/**
+ * Composable function representing the dashboard screen.
+ *
+ * @param navController The navigation controller to handle navigation.
+ * @param isDarkTheme A boolean value indicating whether the current theme is dark or not.
+ * @param onToggleTheme A lambda function to toggle between light and dark themes.
+ * @param viewModel The view model for managing personal recipe data.
+ */
 @Composable
 fun Dashboard(navController: NavController, isDarkTheme: Boolean, onToggleTheme: (Boolean) -> Unit, viewModel: PersonalRecipeViewModel) {
     val recipe = viewModel.selectedRecipeDetails.collectAsState()

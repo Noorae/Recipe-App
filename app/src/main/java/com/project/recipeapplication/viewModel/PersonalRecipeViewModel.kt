@@ -20,7 +20,9 @@ import com.project.recipeapplication.data.repository.PersonalRecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-
+/**
+ * ViewModel class responsible for managing personal recipe data.
+ */
 class PersonalRecipeViewModel(): ViewModel() {
     private val repository = PersonalRecipeRepository()
     private val _personalRecipes = MutableStateFlow<List<RecipeSummary>>(emptyList())
@@ -55,12 +57,16 @@ class PersonalRecipeViewModel(): ViewModel() {
     //tag data
     var tagDescription by mutableStateOf("")
 
-
+    /**
+     * Initializes the ViewModel by fetching all personal recipes.
+     */
     init {
         fetchRecipes()
     }
 
-    // function to fetch recipe summary for all recipes
+    /**
+     * Fetches all personal recipes.
+     */
     fun fetchRecipes() {
         viewModelScope.launch {
             val recipes = repository.fetchRecipes()
@@ -68,7 +74,9 @@ class PersonalRecipeViewModel(): ViewModel() {
         }
     }
 
-    // function to add a new recipe
+    /**
+     * Adds a new personal recipe.
+     */
     private fun addNewRecipe(newRecipe: PersonalRecipe) {
         viewModelScope.launch {
             repository.addRecipe(
@@ -82,7 +90,9 @@ class PersonalRecipeViewModel(): ViewModel() {
     }
 
 
-    //helper function to send new recipes
+    /**
+     * Collects data for a new recipe and adds it to the repository.
+     */
     fun collectRecipeData() {
 
         val newRecipe = PersonalRecipe(
@@ -101,7 +111,9 @@ class PersonalRecipeViewModel(): ViewModel() {
 
     }
 
-    //Helper function to clean all fields
+    /**
+     * Clears all fields related to recipe data.
+     */
     private fun clearAllFields() {
         recipeTitle = ""
         recipeImagePath = null
@@ -113,7 +125,11 @@ class PersonalRecipeViewModel(): ViewModel() {
         recipeIngredients.clear()
     }
 
-    //fetch selected recipe data
+    /**
+     * Fetches detailed information for a specific recipe.
+     *
+     * @param recipeId The ID of the recipe.
+     */
     fun fetchRecipeDetails(recipeId: Int) {
         viewModelScope.launch {
             val details = repository.getRecipeWithFullData(recipeId)
@@ -126,7 +142,9 @@ class PersonalRecipeViewModel(): ViewModel() {
 
     }
 
-    //fetch random recipe data
+    /**
+     * Fetches data for a random recipe.
+     */
     fun fetchRandomRecipeData() {
         viewModelScope.launch {
             val details = repository.getRandomRecipe()
@@ -138,11 +156,16 @@ class PersonalRecipeViewModel(): ViewModel() {
 
     }
 
+    /**
+     * Fetches data for a random recipe when the app starts.
+     */
     fun fetchRandomRecipeOnAppStart() {
         fetchRandomRecipeData()
     }
 
-    //fetch newest recipe data
+    /**
+     * Fetches data for the newest recipe.
+     */
     fun fetchNewestRecipeData() {
         viewModelScope.launch {
             val details = repository.getNewestRecipe()
@@ -154,8 +177,11 @@ class PersonalRecipeViewModel(): ViewModel() {
 
     }
 
-
-    //function to delete recipe by id
+    /**
+     * Deletes a recipe by its ID.
+     *
+     * @param recipeId The ID of the recipe to delete.
+     */
     fun deleteRecipeById(recipeId : Int) {
         viewModelScope.launch {
             repository.deleteRecipeById(recipeId)
@@ -163,7 +189,9 @@ class PersonalRecipeViewModel(): ViewModel() {
 
         }
     }
-
+    /**
+     * Adds an ingredient to the recipe.
+     */
     fun addIngredient() {
             recipeIngredients.add(
                 Ingredient(
@@ -180,6 +208,9 @@ class PersonalRecipeViewModel(): ViewModel() {
         ingredientName = ""
     }
 
+    /**
+     * Adds an instruction step to the recipe.
+     */
     fun addInstruction() {
             recipeInstructions.add(
                 InstructionStep(
@@ -194,6 +225,9 @@ class PersonalRecipeViewModel(): ViewModel() {
         instructionDescription = ""
     }
 
+    /**
+     * Adds a tag to the recipe.
+     */
     fun addTag() {
             recipeTags.add(
                 Tag(
@@ -207,7 +241,14 @@ class PersonalRecipeViewModel(): ViewModel() {
         println(recipeTags)
     }
 
-    // Methods for permissions
+    /**
+     * Sets the image URI for the recipe, ensuring that the app has the necessary
+     * permissions to read the URI.
+     *
+     * @param context The context used to get the content resolver.
+     * @param uri The URI of the image to be set. If null, the image path is not
+     * updated.
+     */
     fun setImageUri(context: Context, uri: Uri?) {
         uri?.let {
             context.contentResolver.takePersistableUriPermission(

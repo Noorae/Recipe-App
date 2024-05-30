@@ -15,67 +15,143 @@ import com.project.recipeapplication.data.model.database.RecipeWithFullData
 import com.project.recipeapplication.data.model.database.ShoppingItem
 import com.project.recipeapplication.data.model.database.Tag
 
+/**
+ * Data Access Object (DAO) for accessing and managing personal recipe data in the local database.
+ */
 @Dao
 interface PersonalRecipeDao {
-    //Select summarized list of recipes
+
+    /**
+     * Retrieves a summarized list of all personal recipes from the local database.
+     *
+     * @return A list of [RecipeSummary] objects representing the summarized list of recipes.
+     */
     @Query("SELECT id, title, imagePath, mealType, isFavorite FROM recipes")
     suspend fun getAll(): List<RecipeSummary>
 
-    //Add new recipe
+    /**
+     * Inserts a new personal recipe into the local database.
+     *
+     * @param recipe The [PersonalRecipe] to be inserted.
+     * @return The ID of the newly inserted recipe.
+     */
     @Insert
     suspend fun insertRecipe(recipe: PersonalRecipe): Long
 
-    //add ingredients list
+    /**
+     * Inserts a list of ingredients into the local database.
+     *
+     * @param ingredients The list of [Ingredient] objects to be inserted.
+     */
     @Insert
     suspend fun insertIngredients(ingredients: List<Ingredient>)
 
-    //add instruction step list
+    /**
+     * Inserts a list of instruction steps into the local database.
+     *
+     * @param instructionSteps The list of [InstructionStep] objects to be inserted.
+     */
     @Insert
     suspend fun insertInstructionSteps(instructionSteps: List<InstructionStep>)
 
-    // add tag list
+    /**
+     * Inserts a list of tags into the local database.
+     *
+     * @param tags The list of [Tag] objects to be inserted.
+     */
     @Insert
     suspend fun insertTags(tags: List<Tag>)
 
-    // delete recipe
+    /**
+     * Deletes a recipe from the local database by its ID.
+     *
+     * @param id The ID of the recipe to be deleted.
+     */
     @Transaction
     @Query("DELETE FROM recipes WHERE id = :id")
     suspend fun deleteRecipeById(id: Int)
 
+    /**
+     * Deletes all ingredients associated with a recipe from the local database.
+     *
+     * @param recipeId The ID of the recipe whose ingredients are to be deleted.
+     */
     @Query("DELETE FROM ingredients WHERE recipeId = :recipeId")
     suspend fun deleteIngredientsByRecipeId(recipeId: Int)
 
+    /**
+     * Deletes all instruction steps associated with a recipe from the local database.
+     *
+     * @param recipeId The ID of the recipe whose instruction steps are to be deleted.
+     */
     @Query("DELETE FROM instruction_steps WHERE recipeId = :recipeId")
     suspend fun deleteInstructionStepsByRecipeId(recipeId: Int)
 
+    /**
+     * Deletes all tags associated with a recipe from the local database.
+     *
+     * @param recipeId The ID of the recipe whose tags are to be deleted.
+     */
     @Query("DELETE FROM tags WHERE recipeId = :recipeId")
     suspend fun deleteTagsByRecipeId(recipeId: Int)
 
-    //get recipe with full data
+    /**
+     * Retrieves a recipe with its full data from the local database.
+     *
+     * @param recipeId The ID of the recipe to retrieve.
+     * @return A [RecipeWithFullData] object representing the recipe with its full data.
+     */
     @Transaction
     @Query("SELECT * FROM recipes WHERE id = :recipeId")
     suspend fun getRecipeWithFullData(recipeId: Int): RecipeWithFullData
 
+    /**
+     * Retrieves the list of shopping items from the local database.
+     *
+     * @return A list of [ShoppingItem] objects representing the shopping items.
+     */
     @Query("SELECT id, name, itemChecked FROM shopping_items")
     suspend fun getShoppingList(): List<ShoppingItem>
 
-    //get random recipe with full data
+    /**
+     * Retrieves a random recipe with its full data from the local database.
+     *
+     * @return A [RecipeWithFullData] object representing the random recipe.
+     */
     @Transaction
     @Query("SELECT * FROM recipes ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandomRecipe(): RecipeWithFullData
 
-    // newest recipe with full data
+    /**
+     * Retrieves the newest recipe with its full data from the local database.
+     *
+     * @return A [RecipeWithFullData] object representing the newest recipe.
+     */
     @Transaction
     @Query("SELECT * FROM recipes ORDER BY id DESC LIMIT 1")
     suspend fun getNewestRecipe(): RecipeWithFullData
 
-    //Add new shopping item
+    /**
+     * Inserts a new shopping item into the local database.
+     *
+     * @param shoppingItem The [ShoppingItem] to be inserted.
+     */
     @Insert
     suspend fun insertShoppingItem(shoppingItem: ShoppingItem)
 
+    /**
+     * Updates an existing shopping item in the local database.
+     *
+     * @param shoppingItem The [ShoppingItem] to be updated.
+     */
     @Update
     suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
 
+    /**
+     * Deletes a shopping item from the local database.
+     *
+     * @param shoppingItem The [ShoppingItem] to be deleted.
+     */
     @Delete
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 

@@ -13,7 +13,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
-
+/**
+ * Composable function for displaying the instructions section of a recipe.
+ *
+ * @param viewModel The view model containing the logic for managing personal recipes.
+ */
 @Composable
 fun InstructionsSection(viewModel: PersonalRecipeViewModel) {
     Column(modifier = Modifier.padding(vertical = 10.dp)) {

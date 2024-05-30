@@ -8,14 +8,30 @@ import com.project.recipeapplication.data.model.database.RecipeSummary
 import com.project.recipeapplication.data.model.database.RecipeWithFullData
 import com.project.recipeapplication.data.model.database.Tag
 
+/**
+ * Repository class for managing personal recipe data.
+ */
 class PersonalRecipeRepository() {
 
+    /**
+     * Fetches all personal recipes.
+     *
+     * @return A list of [RecipeSummary] objects representing the fetched recipes.
+     */
     suspend fun fetchRecipes(): List<RecipeSummary> {
         val recipes = RecipeApplication.database.personalRecipeDao().getAll()
         println(recipes)
         return recipes
     }
 
+    /**
+     * Adds a new personal recipe along with its ingredients, instructions, and tags to the database.
+     *
+     * @param recipe The [PersonalRecipe] object representing the recipe to be added.
+     * @param ingredients The list of [Ingredient] objects representing the ingredients of the recipe.
+     * @param instructions The list of [InstructionStep] objects representing the instructions of the recipe.
+     * @param tags The list of [Tag] objects representing the tags associated with the recipe.
+     */
     suspend fun addRecipe(recipe : PersonalRecipe,
                           ingredients: List<Ingredient>,
                           instructions: List<InstructionStep>,
@@ -49,10 +65,21 @@ class PersonalRecipeRepository() {
 
     }
 
+    /**
+     * Fetches the full data of a specific personal recipe.
+     *
+     * @param recipeId The ID of the recipe.
+     * @return A [RecipeWithFullData] object representing the full data of the recipe.
+     */
     suspend fun getRecipeWithFullData(recipeId: Int): RecipeWithFullData {
         return RecipeApplication.database.personalRecipeDao().getRecipeWithFullData(recipeId)
     }
 
+    /**
+     * Deletes a personal recipe by its ID along with its associated ingredients, instructions, and tags.
+     *
+     * @param id The ID of the recipe to be deleted.
+     */
     suspend fun deleteRecipeById(id : Int) {
         RecipeApplication.database.personalRecipeDao().deleteRecipeById(id)
         RecipeApplication.database.personalRecipeDao().deleteIngredientsByRecipeId(id)
@@ -60,10 +87,20 @@ class PersonalRecipeRepository() {
         RecipeApplication.database.personalRecipeDao().deleteTagsByRecipeId(id)
     }
 
+    /**
+     * Fetches a random personal recipe with full data.
+     *
+     * @return A [RecipeWithFullData] object representing the full data of the random recipe.
+     */
     suspend fun getRandomRecipe() : RecipeWithFullData {
         return RecipeApplication.database.personalRecipeDao().getRandomRecipe()
     }
 
+    /**
+     * Fetches the newest personal recipe with full data.
+     *
+     * @return A [RecipeWithFullData] object representing the full data of the newest recipe.
+     */
     suspend fun getNewestRecipe() : RecipeWithFullData {
         return RecipeApplication.database.personalRecipeDao().getNewestRecipe()
     }

@@ -13,7 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
-
+/**
+ * Composable function for displaying a section for adding or editing recipe details.
+ *
+ * @param viewModel The view model for handling recipe data.
+ */
 @Composable
 fun RecipeSection(viewModel: PersonalRecipeViewModel) {
 

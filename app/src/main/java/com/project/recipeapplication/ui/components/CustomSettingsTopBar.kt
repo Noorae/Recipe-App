@@ -22,7 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
-
+/**
+ * Composable function for displaying a custom top app bar with settings options.
+ *
+ * @param title The title to be displayed in the app bar.
+ * @param navController The navigation controller for navigating between composables.
+ * @param showBackButton Whether to show the back button in the app bar.
+ * @param isDarkTheme Boolean representing whether the current theme is dark or light.
+ * @param onToggleTheme Callback function for toggling between dark and light themes.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomSettingsTopBar(

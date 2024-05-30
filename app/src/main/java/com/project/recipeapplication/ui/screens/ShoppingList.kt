@@ -26,6 +26,12 @@ import com.project.recipeapplication.ui.components.ShoppingItemDialog
 import com.project.recipeapplication.ui.components.ShoppingItems
 import com.project.recipeapplication.viewModel.ShoppingViewModel
 
+/**
+ * Composable function representing the shopping list screen.
+ *
+ * @param navController The navigation controller to handle navigation.
+ * @param viewModel The view model for managing shopping list data.
+ */
 @Composable
 fun ShoppingList(navController: NavController, viewModel : ShoppingViewModel) {
     var showDialog by remember { mutableStateOf(false) }

@@ -23,6 +23,13 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 
+/**
+ * Composable function for displaying a list of favorite recipes fetched from an API.
+ *
+ * @param navController The navigation controller for navigating between composables.
+ * @param modifier The modifier for the list.
+ * @param viewModel The view model containing the logic for managing API recipes.
+ */
 @Composable
 fun ApiFavoriteRecipeList(navController: NavController, modifier: Modifier = Modifier, viewModel: ApiRecipesViewModel) {
     val recipes = viewModel.apiFavoriteRecipes
