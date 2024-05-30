@@ -64,4 +64,9 @@ class PersonalRecipeRepository() {
     suspend fun getRandomRecipe() : RecipeWithFullData {
         return RecipeApplication.database.personalRecipeDao().getRandomRecipe()
     }
+
+    suspend fun getNewestRecipe() : RecipeWithFullData {
+        return RecipeApplication.database.personalRecipeDao().getNewestRecipe()
+    }
+
 }
