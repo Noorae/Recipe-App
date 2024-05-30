@@ -36,15 +36,24 @@ interface PersonalRecipeDao {
     // add tag list
     @Insert
     suspend fun insertTags(tags: List<Tag>)
-    @Delete
-    suspend fun deleteRecipe(recipe: PersonalRecipe)
+
+    // delete recipe
+    @Transaction
+    @Query("DELETE FROM recipes WHERE id = :id")
+    suspend fun deleteRecipeById(id: Int)
+
+    @Query("DELETE FROM ingredients WHERE recipeId = :recipeId")
+    suspend fun deleteIngredientsByRecipeId(recipeId: Int)
+
+    @Query("DELETE FROM instruction_steps WHERE recipeId = :recipeId")
+    suspend fun deleteInstructionStepsByRecipeId(recipeId: Int)
+
+    @Query("DELETE FROM tags WHERE recipeId = :recipeId")
+    suspend fun deleteTagsByRecipeId(recipeId: Int)
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE id = :recipeId")
     suspend fun getRecipeWithFullData(recipeId: Int): RecipeWithFullData
-
-    @Query("DELETE FROM recipes WHERE id = :id")
-    suspend fun deleteRecipeById(id: Int)
 
     @Query("SELECT id, name, itemChecked FROM shopping_items")
     suspend fun getShoppingList(): List<ShoppingItem>
