@@ -128,6 +128,22 @@ class PersonalRecipeViewModel(): ViewModel() {
 
     }
 
+    //fetch random recipe data
+    fun fetchRandomRecipeData() {
+        viewModelScope.launch {
+            val details = repository.getRandomRecipe()
+            _selectedRecipeDetails.value = details
+
+            println(selectedRecipeDetails)
+
+        }
+
+    }
+
+    fun fetchRandomRecipeOnAppStart() {
+        fetchRandomRecipeData()
+    }
+
 
     //function to delete recipe by id
     fun deleteRecipeById(recipeId : Int) {
