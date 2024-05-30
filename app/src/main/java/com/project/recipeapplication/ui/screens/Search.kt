@@ -64,9 +64,9 @@ fun Search(navController: NavController, viewModel: ApiRecipesViewModel) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //TODO Add heading to its own composable
+
         CustomTopBar(
-            title = "Inspiration search" ,
+            title = "Search inspiration" ,
             navController =  navController,
         )
         Divider()
