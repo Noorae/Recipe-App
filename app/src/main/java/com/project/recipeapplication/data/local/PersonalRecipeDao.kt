@@ -64,6 +64,11 @@ interface PersonalRecipeDao {
     @Query("SELECT * FROM recipes ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandomRecipe(): RecipeWithFullData
 
+    // newest recipe with full data
+    @Transaction
+    @Query("SELECT * FROM recipes ORDER BY id DESC LIMIT 1")
+    suspend fun getNewestRecipe(): RecipeWithFullData
+
     //Add new shopping item
     @Insert
     suspend fun insertShoppingItem(shoppingItem: ShoppingItem)
