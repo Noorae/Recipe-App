@@ -12,7 +12,6 @@ import com.project.recipeapplication.BuildConfig
 import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.api.ApiRecipe
 import com.project.recipeapplication.data.model.database.ApiFavoriteRecipe
-import com.project.recipeapplication.data.model.database.RecipeSummary
 import com.project.recipeapplication.data.repository.ApiRecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

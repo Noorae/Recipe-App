@@ -2,10 +2,7 @@ package com.project.recipeapplication.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.recipeapplication.data.model.database.PersonalRecipe
-import com.project.recipeapplication.data.model.database.RecipeSummary
 import com.project.recipeapplication.data.model.database.ShoppingItem
-import com.project.recipeapplication.data.repository.PersonalRecipeRepository
 import com.project.recipeapplication.data.repository.ShoppingListRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

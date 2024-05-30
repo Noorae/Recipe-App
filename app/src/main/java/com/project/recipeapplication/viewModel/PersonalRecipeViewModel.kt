@@ -10,8 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.recipeapplication.BuildConfig
-import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.database.Ingredient
 import com.project.recipeapplication.data.model.database.InstructionStep
 import com.project.recipeapplication.data.model.database.PersonalRecipe

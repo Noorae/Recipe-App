@@ -1,9 +1,7 @@
 package com.project.recipeapplication.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,22 +15,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.project.recipeapplication.R
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
-import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
 @Composable
 fun ApiFavoriteRecipeList(navController: NavController, modifier: Modifier = Modifier, viewModel: ApiRecipesViewModel) {
-    val recipeState = viewModel.apiFavoriteRecipes
-    val recipes = recipeState
+    val recipes = viewModel.apiFavoriteRecipes
+
 
     LazyColumn(modifier = Modifier
         .padding(5.dp)) {

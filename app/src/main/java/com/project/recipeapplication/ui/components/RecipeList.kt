@@ -27,8 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.project.recipeapplication.R
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 

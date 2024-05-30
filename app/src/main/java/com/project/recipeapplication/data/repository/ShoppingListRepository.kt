@@ -1,8 +1,6 @@
 package com.project.recipeapplication.data.repository
 
 import com.project.recipeapplication.RecipeApplication
-import com.project.recipeapplication.MainActivity
-import com.project.recipeapplication.data.model.database.RecipeSummary
 import com.project.recipeapplication.data.model.database.ShoppingItem
 
 class ShoppingListRepository() {

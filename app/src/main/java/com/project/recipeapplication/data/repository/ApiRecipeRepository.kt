@@ -5,7 +5,6 @@ import com.project.recipeapplication.data.api.RetrofitInstance
 import com.project.recipeapplication.data.model.api.ApiDetailedRecipe
 import com.project.recipeapplication.data.model.api.ApiRecipe
 import com.project.recipeapplication.data.model.database.ApiFavoriteRecipe
-import com.project.recipeapplication.data.model.database.RecipeSummary
 
 class ApiRecipeRepository() {
 

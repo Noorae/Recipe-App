@@ -11,9 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.room.Room
-import com.project.recipeapplication.data.local.AppDatabase
 import com.project.recipeapplication.ui.navigation.BottomNavBar
 import com.project.recipeapplication.ui.theme.RecipeApplicationTheme
 import com.project.recipeapplication.viewModel.ApiRecipesViewModel
