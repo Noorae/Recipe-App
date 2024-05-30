@@ -101,7 +101,7 @@ fun BottomNavBar(apiRecipeViewModel : ApiRecipesViewModel,
         innerPadding -> Box(modifier = Modifier.padding(innerPadding)) {
             NavHost(navController = navController, startDestination = "dashboard") {
                 composable("dashboard") {
-                    Dashboard(navController = navController, isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme)
+                    Dashboard(navController = navController, isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme, viewModel = personalRecipeViewModel)
                 }
                 composable("search") {
                     Search(navController = navController, viewModel = apiRecipeViewModel)
