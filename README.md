@@ -12,7 +12,7 @@
 
 ## Description
 
-Recipe App is a simple android mobile app for managing and adding your own recipes. 
+Recipe App is a simple android mobile app for managing and adding your own recipes. Get inspiration from api fetched recipes to create your own.
 Application also has a feature to manage your shopping list.
 
 <div align="center">
@@ -26,11 +26,10 @@ Fetch recipes from [Spoonacular API](https://spoonacular.com/) and save your fav
 
 	
 ### Personal Recipes
-Create your own recipes with images. Add tags, and 
+Create your own recipes with images. Add tags, and instruction with ingredients. You can also set ingredient amounts based on the serving size.
 
 ### Shopping List
 Manage your shopping list by adding ingredients and every day necessities. 
-
 The focus is to have a simple UI and a user friendly feel.
 
 ## Build-with
