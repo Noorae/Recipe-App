@@ -16,11 +16,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.project.recipeapplication.data.model.database.ApiFavoriteRecipe
 import com.project.recipeapplication.ui.components.ApiFavoriteRecipeList
 import com.project.recipeapplication.ui.components.CustomTopBar
@@ -30,10 +32,14 @@ import com.project.recipeapplication.viewModel.ApiRecipesViewModel
 import com.project.recipeapplication.viewModel.PersonalRecipeViewModel
 
 @Composable
-fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel, apiViewModel : ApiRecipesViewModel) {
+fun Recipes(navController: NavController,
+            viewModel: PersonalRecipeViewModel,
+            apiViewModel : ApiRecipesViewModel,
+            selectedTabIndex: Int) {
     val recipeState = viewModel.personalRecipes.collectAsState()
     val personalRecipes = recipeState.value
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    //var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var tabIndex by rememberSaveable { mutableIntStateOf(selectedTabIndex) }
 
 
     Column(modifier = Modifier
@@ -47,13 +53,13 @@ fun Recipes(navController: NavController, viewModel: PersonalRecipeViewModel, ap
             navController =  navController,
         )
         RecipesTabs(
-            selectedTabIndex = selectedTabIndex,
-            onTabSelected = { index -> selectedTabIndex = index }
+            selectedTabIndex = tabIndex,
+            onTabSelected = { index -> tabIndex = index }
         )
         Divider()
 
         Box(modifier = Modifier.fillMaxSize()) {
-            when (selectedTabIndex) {
+            when (tabIndex) {
                 0 ->  {
                     RecipeList(navController, viewModel = viewModel)
                     ExtendedFloatingActionButton(
