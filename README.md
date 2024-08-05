@@ -65,5 +65,3 @@ This project was developed as part of the BBA Information Technology
 mobile development course at Tampere University of Applied Sciences.
 
 Developed by Noora Vainionpää noora_vain@hotmail.com [Email](noora_vain@hotmail.com)
-
-[Screencast video](https://youtu.be/YQgobxh1Cz8)
